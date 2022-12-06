@@ -12,7 +12,7 @@
 
 # theme                  : "minimal-mistakes-jekyll"
 # remote_theme           : "mmistakes/minimal-mistakes"
-minimal_mistakes_skin: "contrast" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin: "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale: "en-KO"
@@ -105,13 +105,13 @@ analytics:
 author:
   name: "Rud"
   avatar: "/assets/images/avatar.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio: "몰?루"
+  bio: "티내지 않으면 아무도 몰?룬다"
   location:
   email: "Ruderud0055@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      # url: "mailto:your.name@email.com"
+      # url: "Ruderud0055@gmail.com"
     - label: "Mentor2Mentee(공기업시험리뷰)"
       icon: "fas fa-fw fa-link"
       url: "https://mentor2mentee.net"
