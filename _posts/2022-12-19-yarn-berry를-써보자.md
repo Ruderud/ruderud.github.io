@@ -8,13 +8,55 @@ toc: true
 toc_sticky: true
 ---
 
-## 선 요약
+## 선요약
 
-- 로컬에서 너무나도 큰 용량을 차지하고 있는 node_modules를 없애고싶을때.
-- 배포환경에서 의존성을 추가로 설치하는 과정을 제거하여, CI속도 개선 향상이 필요할때.
+- (package.json이 없을때 이걸먼저)
 
-이 두가지 이유가 있다면 `yarn berry`를 쓸 이유가 충분하다.  
-하지만 다음의 이유가 있다면 도입을 다시 검토해 볼 필요가 있다.
+```bash
+> yarn init -2
+```
+
+- 이후 yarn berry 마이그레이션 과정
+
+```bash
+> yarn set version berry
+```
+
+- .yarnrc.yml 수정 (pnp모드)
+
+```yml
+yarnPath: .yarn/releases/yarn-3.3.0.cjs
+nodeLinker: pnp
+```
+
+- 의존성 설치 및 sdk 설치 (vscode)
+
+```bash
+> yarn
+> yarn dlx @yarnpkg/sdks vscode
+```
+
+<a href="#안되는데요-2022-12-19-기준">에러발생시 참조</a>
+
+## yarn berry 도입배경
+
+지금껏 무지성 npm만 사용해왔다. (yarn이 있는건 알지만, npm이 엄청 범용적이라.)  
+하지만 얼마전, yarn을 써서 개발할 일이 있었고 이걸 왜쓰는지 궁금해졌다.  
+찾다보니까 npm보다 효율적으로 모듈을 관리하기 위해 facebook이 만들었다고 한다.  
+그래서 계속 읽다보니 비교적 최근, yarn berry라는것이 나왔는데 이게 좀 특이하게 모듈을 관리하더라.
+
+- <a href="https://toss.tech/article/node-modules-and-yarn-berry" target="_blank">node_modules로부터 우리를 구원해 줄 Yarn Berry(Toss)</a>
+
+구글에 `yarn berry`라고 검색하면 이걸 써야하는 이유랍시고 열심히 써놓은글들 개많고, 다 읽어봤다.  
+공통점은 하나같이 다들 저 글 링크로 걸어놓고 node_modules가 태양이나 블랙홀보다 무겁다는 **"그 짤"**을 걸어놓는다는것.
+
+어찌됐든 내용을 요약해보면,
+
+- 로컬에서 너무나도 큰 용량을 차지하고 있는 node_modules를 없애고 최적화 가능. (Plug'n Play)
+- 배포환경에서 의존성을 추가로 설치하는 과정을 제거하여, CI속도 개선 향상. (zero-install)
+
+이 두가지 효능?이 있다는것이 주 내용이다.
+하지만 마냥 좋다기엔 불편한점이 아직있다.
 
 - yarn 사용이 익숙치 않은 협업환경일 경우.
 - 최신 typescript를 쓰고있는경우.
@@ -23,19 +65,12 @@ toc_sticky: true
 우선 1의 이유는 당연히 못쓴다. 무지성 `> npm i ~ ` 이러기 바쁠텐데 어떻게 쓰게만드냐.  
 실제로는 2,3의 문제가 제일 크다. 이는 <a href="#안되는데요-2022-12-19-기준">아래</a>에서 서술할예정.
 
-## yarn 도입배경
-
-node_modules 다운받는거 안해도 된다길래 해봤다.
-
-- <a href="https://toss.tech/article/node-modules-and-yarn-berry" target="_blank">node_modules로부터 우리를 구원해 줄 Yarn Berry(Toss)</a>
-
-구글에 `yarn berry`라고 검색하면 이걸 써야하는 이유랍시고 열심히 써놓은글들 개많다.  
-하나같이 다들 저 글 링크로 걸어놓고 node_modules가 태양이나 블랙홀보다 무겁다는 **"그 짤"** 걸어놓는다.  
-글 한두개만 보면 납득이 갈거다.
+개인적으로는 최신 TS문법을 좀 쓰고싶은 마음이 있는지라 yarn berry를 잘 쓸지는 모르겠다.  
+버전이슈가 해결되기 전까지는 가능하면 yarn & node_modules로 사용할 예정.
 
 ## yarn 적용방법
 
-웬만하면 보통 이런것들은 공식문서보면 다 해결되는데, 이건 이상하게 안되는 부분이 있음. 아래쪽에 있으니까 참조.
+웬만한건 공식문서선에서 다 해결된다. 안되면 지옥시작.
 
 - <a href="https://yarnpkg.com/getting-started/install" target="_blank">yarn 공식문서 링크(install)</a>
 
